@@ -13,12 +13,12 @@ func TestCountLinesInText(t *testing.T) {
 		input string
 		want  int
 	}{
-		{"empty string",        "",                    0},
-		{"single line",         "Go is powerful",      1},
-		{"two lines",           "Go\nPython",          2},
-		{"three lines",         "One\nTwo\nThree",     3},
-		{"trailing newline",    "Go\nPython\n",        3},
-		{"only newline",        "\n",                  2},
+		{"empty string", "", 0},
+		{"single line", "Go is powerful", 1},
+		{"two lines", "Go\nPython", 2},
+		{"three lines", "One\nTwo\nThree", 3},
+		{"trailing newline", "Go\nPython\n", 3},
+		{"only newline", "\n", 2},
 	}
 
 	for _, tt := range tests {
@@ -38,12 +38,12 @@ func TestCountWords(t *testing.T) {
 		input string
 		want  int
 	}{
-		{"empty string",      "",                  0},
-		{"single word",       "Go",                1},
-		{"simple sentence",   "Go is powerful",    3},
-		{"extra spaces",      "Hello   there",     2},
-		{"newline separated", "One\nTwo\nThree",   3},
-		{"tabs as spaces",    "Go\tis\tgreat",     3},
+		{"empty string", "", 0},
+		{"single word", "Go", 1},
+		{"simple sentence", "Go is powerful", 3},
+		{"extra spaces", "Hello   there", 2},
+		{"newline separated", "One\nTwo\nThree", 3},
+		{"tabs as spaces", "Go\tis\tgreat", 3},
 	}
 
 	for _, tt := range tests {
@@ -56,7 +56,6 @@ func TestCountWords(t *testing.T) {
 	}
 }
 
-
 // ReplaceAllInText
 func TestReplaceAllInText(t *testing.T) {
 	tests := []struct {
@@ -66,12 +65,12 @@ func TestReplaceAllInText(t *testing.T) {
 		newWord string
 		want    string
 	}{
-		{"simple replace",       "Go is great",         "Go",    "Golang", "Golang is great"},
-		{"replace all matches",  "Go Go Go",            "Go",    "Rust",   "Rust Rust Rust"},
-		{"no match",             "Go is great",         "Java",  "Rust",   "Go is great"},
-		{"empty string",         "",                    "Go",    "Rust",   ""},
-		{"replace with empty",   "Go is great",         "great", "",       "Go is "},
-		{"old and new same",     "Go is great",         "Go",    "Go",     "Go is great"},
+		{"simple replace", "Go is great", "Go", "Golang", "Golang is great"},
+		{"replace all matches", "Go Go Go", "Go", "Rust", "Rust Rust Rust"},
+		{"no match", "Go is great", "Java", "Rust", "Go is great"},
+		{"empty string", "", "Go", "Rust", ""},
+		{"replace with empty", "Go is great", "great", "", "Go is "},
+		{"old and new same", "Go is great", "Go", "Go", "Go is great"},
 	}
 
 	for _, tt := range tests {

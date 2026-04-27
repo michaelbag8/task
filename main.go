@@ -6,7 +6,6 @@ import (
 	"strings"
 )
 
-
 func CountLinesInText(input string) int {
 	sl := strings.Split(input, "\n")
 	if input == "" {
@@ -14,7 +13,6 @@ func CountLinesInText(input string) int {
 	}
 	return len(sl)
 }
-
 
 func ReplaceWordInFile(file, newWord, oldWord string) string {
 	data, err := os.ReadFile(file)
@@ -36,17 +34,14 @@ func ReplaceWordInFile(file, newWord, oldWord string) string {
 	return strings.Join(searchWord, " ")
 }
 
-
 func CountWords(str string) int {
 	words := strings.Fields(str)
 	return len(words)
 }
 
-
 func ReplaceAllInText(text, oldW, newW string) string {
 	return strings.ReplaceAll(text, oldW, newW)
 }
-
 
 func PrintLineSegments(str string) error {
 	words := strings.Split(str, "\\n")
@@ -66,8 +61,6 @@ func ValidateASCIIInput(str string) {
 	fmt.Println("Valid input")
 }
 
-
-
 func main() {
 	if len(os.Args) < 2 {
 		fmt.Println("Input the current file format")
@@ -76,25 +69,20 @@ func main() {
 
 	input := os.Args[1]
 
-	
 	ValidateASCIIInput(input)
 
-	
 	lineCount := CountLinesInText(input)
 	fmt.Printf("Line Count: %d\n", lineCount)
-
 
 	wordCount := CountWords(input)
 	fmt.Printf("Word Count: %d\n", wordCount)
 
-	
 	err := PrintLineSegments(input)
 	if err != nil {
 		fmt.Println("Error printing line segments")
 		os.Exit(1)
 	}
 
-	
 	if len(os.Args) >= 4 {
 		oldWord := os.Args[2]
 		newWord := os.Args[3]

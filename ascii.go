@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-// loadBanner reads the font file and returns a map of rune -> 8 lines of ASCII art
-func loadBanner(filename string) map[rune][]string {
+func LoadBanner(filename string) (map[rune][]string,error) {
+
 	data, err := os.ReadFile(filename)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error reading fontfile: %v\n", err)
-		os.Exit(1)
+		return nil, err
 	}
 
 	content := string(data)
@@ -21,7 +21,7 @@ func loadBanner(filename string) map[rune][]string {
 	rawFile := strings.Split(content, "\n\n")
 
 	bannerMap := make(map[rune][]string)
-	charCode := rune(' ') // ASCII art files start at space (32)
+	charCode := rune(' ')
 
 	for _, raw := range rawFile {
 		lines := strings.Split(raw, "\n")
@@ -32,10 +32,9 @@ func loadBanner(filename string) map[rune][]string {
 		charCode++
 	}
 
-	return bannerMap
+	return bannerMap, nil
 }
 
-// renderBanner uses the banner map to print the ASCII art for the input string
 func renderBanner(input string, bannerMap map[rune][]string) {
 	segments := strings.Split(input, "\\n")
 
@@ -47,7 +46,6 @@ func renderBanner(input string, bannerMap map[rune][]string) {
 			continue
 		}
 
-		// Validate all characters before rendering
 		for _, ch := range segment {
 			if _, ok := bannerMap[ch]; !ok {
 				fmt.Fprintf(os.Stderr, "Non Printable ASCII Character %q\n", ch)
@@ -55,7 +53,6 @@ func renderBanner(input string, bannerMap map[rune][]string) {
 			}
 		}
 
-		// Render row by row
 		for row := 0; row < 8; row++ {
 			var result strings.Builder
 			for _, ch := range segment {
@@ -79,6 +76,10 @@ func main() {
 		fontFile = os.Args[2] + ".txt"
 	}
 
-	bannerMap := loadBanner(fontFile)
+	bannerMap, err := LoadBanner(fontFile)
+	if err!=nil{
+		fmt.Println("Error loading banner function")
+		os.Exit(1)
+	}
 	renderBanner(input, bannerMap)
 }
