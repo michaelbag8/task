@@ -14,6 +14,10 @@ func LoadBanner(filename string) (map[rune][]string,error) {
 		return nil, err
 	}
 
+	if len(data) == 0{
+		return nil, fmt.Errorf("banner can not be empty")
+	}
+	
 	content := string(data)
 	content = strings.ReplaceAll(content, "\r\n", "\n")
 	content = strings.TrimLeft(content, "\n")
@@ -26,7 +30,7 @@ func LoadBanner(filename string) (map[rune][]string,error) {
 	for _, raw := range rawFile {
 		lines := strings.Split(raw, "\n")
 		if len(lines) < 8 {
-			continue
+			return nil, fmt.Errorf("invalid character")
 		}
 		bannerMap[charCode] = lines[:8]
 		charCode++
