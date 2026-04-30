@@ -9,23 +9,50 @@ import (
 // ListBanners scans the given directory and returns the names
 // of all valid banner files (files ending in ".txt"),
 // stripped of their extension. e.g ["standard", "shadow", "thinkertoy"]
+//ListBanners list out the .txt files within the current directory
 func ListBanners(dir string) ([]string, error) {
-	data, err := os.ReadDir(dir)
-	if err !=nil{
-		fmt.Fprintf(os.Stderr, "Error geting directory %v", err)
+	content, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
 	}
-
 	var result []string
 
-	for _, entries := range data{
-		name := entries.Name()
-		if !entries.IsDir() && strings.HasSuffix(name, ".txt"){
+	for _, files := range content {
+
+		if files.IsDir() {
+			continue
+		}
+		name := files.Name()
+		if strings.HasSuffix(name, ".txt") {
 			result = append(result, strings.TrimSuffix(name, ".txt"))
 		}
 	}
-	return  result, nil
+	return result, nil
 
 }
+//ListDirectories list out the directories within the current directory
+func ListDirectories(dir string) ([]string, error) {
+	content, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, err
+	}
+	var result []string
+
+	for _, files := range content {
+
+		name := files.Name()
+
+		if !files.IsDir() {
+			continue
+		} else {
+			result = append(result, name)
+		}
+
+	}
+	return result, nil
+
+}
+
 // BannerSupports returns true if all characters in the given string
 // are present as keys in the bannerMap, false otherwise.
 // It should ignore the literal "\n" sequence when checking.
