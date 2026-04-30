@@ -46,16 +46,15 @@ func BannerToMap(blocks [][]string) map[rune][]string {
 	return block
 }
 
-func StringToSlice(str string) (blocks [][]string) {
+func SlicetoGrid(str string, cols int) (blocks [][]string) {
 	words := strings.Fields(str)
 
-	for i := 0; i < 3; i++ {
-		var block []string
-
-		for j := 0; j < 3; j++ {
-			block = append(block, words[i*3+j])
+	for row := 0; row < len(words); row += cols {
+		end := row + cols
+		if end > len(words) {
+			end = len(words)
 		}
-		blocks = append(blocks, block)
+		blocks = append(blocks, words[row:end])
 	}
 	return blocks
 }
@@ -82,6 +81,8 @@ func main() {
 	}
 
 	board := "X _ O _ X _ O _ X"
-	fmt.Println(StringToSlice(board))
+	fmt.Println(StringToGrid(board))
+	wrd := "one two three four five six seven eight nine ten eleven twelve"
+	fmt.Println(SlicetoGrid(wrd, 3))
 
 }
