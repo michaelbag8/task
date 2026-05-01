@@ -78,6 +78,15 @@ func nWordsBefore(sentence string, i, n int) string {
 
 }
 
+func findWord(sentence, target string) int {
+    words := strings.Fields(sentence)
+    for i, w := range words {
+        if strings.EqualFold(w, target) {
+            return i    // first match — stop here
+        }
+    }
+    return -1           // not found
+}
 
 func main() {
 
@@ -108,6 +117,12 @@ func main() {
 	fmt.Println(nextWords(z, 0, 1))
 
 	fmt.Println(nWordsBefore("one two three", 1, 5))
+
+	
+    s := "the quick brown fox"
+    fmt.Println(findWord(s, "brown")) 
+    fmt.Println(findWord(s, "BROWN")) 
+    fmt.Println(findWord(s, "cat"))   
 
 
 }
