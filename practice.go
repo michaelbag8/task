@@ -88,6 +88,18 @@ func findWord(sentence, target string) int {
     return -1           // not found
 }
 
+func findAllIndexes(sentence, target string) []int {
+    words := strings.Fields(sentence)
+    var result []int                       // nil slice — append works on nil
+
+    for i, w := range words {
+        if strings.EqualFold(w, target) {
+            result = append(result, i)    // collect every match, no break
+        }
+    }
+    return result
+}
+
 func main() {
 
 	//firstAndLast words
@@ -119,10 +131,16 @@ func main() {
 	fmt.Println(nWordsBefore("one two three", 1, 5))
 
 	
-    s := "the quick brown fox"
-    fmt.Println(findWord(s, "brown")) 
-    fmt.Println(findWord(s, "BROWN")) 
-    fmt.Println(findWord(s, "cat"))   
+    sw := "the quick brown fox"
+    fmt.Println(findWord(sw, "brown")) 
+    fmt.Println(findWord(sw, "BROWN")) 
+    fmt.Println(findWord(sw, "cat"))  
+
+	sd := "the cat sat on the mat near the cat"
+    fmt.Println(findAllIndexes(sd, "the")) 
+    fmt.Println(findAllIndexes(sd, "cat")) 
+    fmt.Println(findAllIndexes(sd, "dog")) 
+	
 
 
 }
