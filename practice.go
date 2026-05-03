@@ -82,23 +82,32 @@ func findWord(sentence, target string) int {
     words := strings.Fields(sentence)
     for i, w := range words {
         if strings.EqualFold(w, target) {
-            return i    // first match — stop here
+            return i    
         }
     }
-    return -1           // not found
+    return -1           
 }
 
 func findAllIndexes(sentence, target string) []int {
     words := strings.Fields(sentence)
-    var result []int                       // nil slice — append works on nil
+    var result []int                      
 
     for i, w := range words {
         if strings.EqualFold(w, target) {
-            result = append(result, i)    // collect every match, no break
+            result = append(result, i)    
         }
     }
     return result
 }
+func replaceAt(sentence, replacement string, i int) string {
+    words := strings.Fields(sentence)
+    if i < 0 || i >= len(words) {
+        return sentence
+    }
+    words[i] = replacement
+    return strings.Join(words, " ")
+}
+
 
 func main() {
 
@@ -142,5 +151,9 @@ func main() {
     fmt.Println(findAllIndexes(sd, "dog")) 
 	
 
+    sentence := "the quick brown fox"
+    fmt.Println(replaceAt(sentence, "red", 2))  
+    fmt.Println(replaceAt(sentence, "slow", 1)) 
+	
 
 }
