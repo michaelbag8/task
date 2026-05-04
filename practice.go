@@ -204,6 +204,17 @@ func changeMultiplesOfFive(s string, r rune) string {
 	return string(runes)
 }
 
+
+func changeEvery5thWord(sentence string) string {
+	words := strings.Fields(sentence)
+	for i := range words {
+		if i != 0 && i%5 == 0 {
+			words[i] = strings.ToUpper(words[i])
+		}
+	}
+	return strings.Join(words, " ")
+}
+
 func main() {
 
 	//firstAndLast words
@@ -271,5 +282,10 @@ func main() {
 	fmt.Println(changeChar(core, 1, 'a'))
 	
 	fmt.Println(changeMultiplesOfFive("abcdefghijunbvcdfreswaziokhg", 'T'))
+
+
+	sen := "one two three four five six seven eight nine ten eleven twelve thirteen forteen"
+	fmt.Println(changeEvery5thWord(sen))
+
 
 }
