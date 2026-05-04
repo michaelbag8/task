@@ -193,6 +193,16 @@ func changeChar(s string, i int, r rune) string {
 
 	return string(runes)
 }
+func changeMultiplesOfFive(s string, r rune) string {
+	runes := []rune(s)
+	for i := range runes {
+		if i%5 == 0 {
+			runes[i] = r
+		}
+
+	}
+	return string(runes)
+}
 
 func main() {
 
@@ -260,5 +270,6 @@ func main() {
 	core := "hello"
 	fmt.Println(changeChar(core, 1, 'a'))
 	
+	fmt.Println(changeMultiplesOfFive("abcdefghijunbvcdfreswaziokhg", 'T'))
 
 }
