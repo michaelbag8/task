@@ -273,6 +273,21 @@ func titleLowerCase(s string) string {
 	}
 	return strings.Join(words, " ")
 }
+func replaceInsideQuotes(s, target, replacement string) string {
+	words := strings.Fields(s)
+	isQuote := false
+	for i, w := range words {
+		if w == "'" {
+			isQuote = !isQuote
+			continue
+		}
+		if isQuote && strings.EqualFold(w, target) {
+			words[i] = replacement
+		}
+
+	}
+	return strings.Join(words, " ")
+}
 
 func main() {
 
