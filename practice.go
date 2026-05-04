@@ -182,6 +182,18 @@ func replaceWords(sentence, target, replacement string) string {
 
 	return strings.Join(words, " ")
 }
+
+func changeChar(s string, i int, r rune) string {
+	runes := []rune(s)
+	if i < 0 || i >= len(runes) {
+		return s
+	}
+
+	runes[i] = r
+
+	return string(runes)
+}
+
 func main() {
 
 	//firstAndLast words
@@ -243,6 +255,10 @@ func main() {
 
 	w := "the cat and the dog and the bird"
 	fmt.Println(replaceWords(w, "the", "a"))
+
+
+	core := "hello"
+	fmt.Println(changeChar(core, 1, 'a'))
 	
 
 }
