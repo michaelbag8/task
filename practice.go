@@ -215,6 +215,65 @@ func changeEvery5thWord(sentence string) string {
 	return strings.Join(words, " ")
 }
 
+
+func upperInsideQuotes(s string) string {
+	words := strings.Fields(s)
+	inQuote := false
+	for i, w := range words {
+		if w == "'" {
+			inQuote = !inQuote
+			continue
+
+		}
+		if inQuote {
+			words[i] = strings.ToUpper(words[i])
+
+		}
+	}
+	return strings.Join(words, " ")
+}
+
+func lowerOutsideQuotes(s string) string {
+	words := strings.Fields(s)
+	inQuote := false
+	for i, w := range words {
+		if w == "'" {
+			inQuote = !inQuote
+			continue
+
+		}
+
+		if !inQuote {
+			words[i] = strings.ToLower(words[i])
+
+		}
+
+	}
+	return strings.Join(words, " ")
+}
+
+func titleLowerCase(s string) string {
+	words := strings.Fields(s)
+	IsQuote := false
+	for i, w := range words {
+		if w == "'" {
+			IsQuote = !IsQuote
+			continue
+
+		}
+		if IsQuote {
+			words[i] = strings.ToLower(words[i])
+		} else {
+			runes := []rune(words[i])
+			if len(runes) > 0 {
+				words[i] = strings.ToUpper(string(runes[0])) + strings.ToLower(string(runes[1:]))
+			}
+		}
+
+	}
+	return strings.Join(words, " ")
+}
+
 func main() {
 
 	//firstAndLast words
@@ -286,6 +345,14 @@ func main() {
 
 	sen := "one two three four five six seven eight nine ten eleven twelve thirteen forteen"
 	fmt.Println(changeEvery5thWord(sen))
+
+	fmt.Println(upperInsideQuotes("Jesus deserve your ' praise all the time '"))
+	fmt.Println(upperInsideQuotes("I saw ' hello world ' today"))
+	fmt.Println(lowerOutsideQuotes(" THIS IS A PLACE TO ' LEARN CODING '"))
+	fmt.Println(lowerOutsideQuotes("THE QUICK ' brown fox ' JUMPS"))
+	
+	fmt.Println(titleLowerCase("jesus deserve your ' PRAISE ALL THE TIME ' praise ye the lord"))
+
 
 
 }
