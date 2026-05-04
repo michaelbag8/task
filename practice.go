@@ -109,6 +109,79 @@ func replaceAt(sentence, replacement string, i int) string {
 }
 
 
+
+func replaceALl(sentence, replacement string, index int) string {
+	words := strings.Fields(sentence)
+	if index < 0 || index >= len(words) {
+		index = len(words)
+	}
+
+	words[index] = replacement
+	return strings.Join(words, " ")
+}
+
+func replaceFirst(sentence, replacement string) string {
+	words := strings.Fields(sentence)
+	if len(words) == 0 {
+		return sentence
+	}
+
+	words[0] = replacement
+
+	return strings.Join(words, " ")
+}
+
+func replaceWordBefore(sentence, target, replacement string) string {
+	words := strings.Fields(sentence)
+	for i := 0; i < len(words); i++ {
+		if strings.EqualFold(words[i], target) && i > 0 {
+			words[i-1] = replacement
+			break
+		}
+
+	}
+
+	return strings.Join(words, " ")
+}
+
+func replaceWordAfter(sentence, target, replacement string) string {
+	words := strings.Fields(sentence)
+
+	for i, word := range words {
+
+		if word == target && i+1 < len(words) {
+			words[i+1] = replacement
+			break
+		}
+	}
+
+	return strings.Join(words, " ")
+}
+
+func replaceLast(sentence, replacement string) string {
+	words := strings.Fields(sentence)
+	if len(words) == 0 {
+		return sentence
+	}
+
+	words[len(words)-1] = replacement
+
+	return strings.Join(words, " ")
+}
+
+func replaceWords(sentence, target, replacement string) string {
+	words := strings.Fields(sentence)
+	for i := 0; i < len(words); i++ {
+		if i < 0 || i < len(words) {
+			if strings.EqualFold(words[i], target) {
+				words[i] = replacement
+			}
+		}
+
+	}
+
+	return strings.Join(words, " ")
+}
 func main() {
 
 	//firstAndLast words
@@ -151,9 +224,25 @@ func main() {
     fmt.Println(findAllIndexes(sd, "dog")) 
 	
 
-    sentence := "the quick brown fox"
-    fmt.Println(replaceAt(sentence, "red", 2))  
-    fmt.Println(replaceAt(sentence, "slow", 1)) 
+    sentences := "the quick brown fox"
+    fmt.Println(replaceAt(sentences, "red", 2))  
+    fmt.Println(replaceAt(sentences, "slow", 1)) 
+
+
+	words := "This is a good way to start learning"
+	fmt.Println(replaceALl(words, "earning", 7))
+	fmt.Println(replaceFirst(words, "That"))
+	fmt.Println(replaceLast(words, "playing"))
+
+	fmt.Println(replaceWordBefore(words, "good", "great"))
+
+	sz := "I love coding in Go every day"
+	fmt.Println(replaceWordBefore(sz, "Go", "writing"))
+
+	fmt.Println(replaceWordAfter(sz, "Go", "some"))
+
+	w := "the cat and the dog and the bird"
+	fmt.Println(replaceWords(w, "the", "a"))
 	
 
 }
